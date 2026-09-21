@@ -1,0 +1,13 @@
+# OS / 编辑器
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Netlify 本地文件
+.netlify/
+.netlify.state
+
+# 日志
+*.log

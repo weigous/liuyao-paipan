@@ -1,0 +1,10 @@
+# Netlify build configuration for liuyao-paipan
+# 纯静态站点：不跑构建命令，直接发布仓库根目录
+[build]
+  publish = "."
+
+# 可选的 SPA/静态重写兜底，建议同时保留 _redirects
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
