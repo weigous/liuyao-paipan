@@ -541,7 +541,7 @@ function render(ben, zhi, moves, yueZhi, riGan, riZhi, kong){
   function staChips(br,wx,yue,rig,ri,kong){
     var o=[];
     monthState(br,wx,yue).forEach(function(x){o.push("<i class='m'>月·"+esc(x)+"</i>");});
-    dayState(br,wx,ri,rig).forEach(function(x){o.push("<i class='d'>日·"+esc(x)+"</i>");});
+    dayState(br,wx,rig,ri).forEach(function(x){o.push("<i class='d'>日·"+esc(x)+"</i>");});
     if(kong.indexOf(br)>=0)o.push("<i class='k'>空</i>");
     return o.join("");
   }
