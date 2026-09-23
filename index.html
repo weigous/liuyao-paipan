@@ -292,12 +292,13 @@ function dayState(branch, wx, riZhi, riGan){var i=DZI[branch], j=DZI[riZhi], r=[
 function monthState(branch, wx, yueZhi){var i=DZI[branch], j=DZI[yueZhi], r=[];
   r.push(wangshuai(wx,BZWX[yueZhi])); if(i===j)r.push("值月");
   if(HE[i]===j)r.push("月合"); if(CHONG[i]===j)r.push("月破"); if(HAI[i]===j)r.push("月害"); return r;}
-function lineRel(pos, branches){var i=DZI[branches[pos]], r=[], YN=["初","二","三","四","五","上"];
+function lineRel(pos, branches, yueZhi){var i=DZI[branches[pos]], r=[], YN=["初","二","三","四","五","上"];
   for(var q=0;q<6;q++){if(q===pos)continue; var j=DZI[branches[q]];
-    if(HE[i]===j)r.push("与"+YN[q]+"爻"+DZ[j]+"六合"); if(HAI[i]===j)r.push("与"+YN[q]+"爻"+DZ[j]+"相害");}
+    if(HE[i]===j)r.push("与"+YN[q]+"爻"+DZ[j]+"六合"); if(HAI[i]===j)r.push("与"+YN[q]+"爻"+DZ[j]+"相害");
+    if(CHONG[i]===j){var wm=wangshuai(BZWX[branches[q]],BZWX[yueZhi]); r.push("与"+YN[q]+"爻"+DZ[j]+"六冲·"+(wm==="旺"||wm==="相"?"冲动":"冲散"));}}
   for(var t=0;t<XING.length;t++){var p=XING[t];
-    if(p[0]===i&&branches.indexOf(DZ[p[1]])>=0&&p[1]!==i)r.push("与"+DZ[p[1]]+"相刑");
-    if(p[1]===i&&branches.indexOf(DZ[p[0]])>=0&&p[0]!==i)r.push("与"+DZ[p[0]]+"相刑");}
+    if(p[0]===i&&branches.indexOf(DZ[p[1]])>=0&&p[1]!==i&&CHONG[i]!==DZI[DZ[p[1]]])r.push("与"+DZ[p[1]]+"相刑");
+    if(p[1]===i&&branches.indexOf(DZ[p[0]])>=0&&p[0]!==i&&CHONG[i]!==DZI[DZ[p[0]]])r.push("与"+DZ[p[0]]+"相刑");}
   if(ZIXING[i])r.push("自刑"); return r;}
 var MU={木:"未",火:"戌",土:"戌",金:"丑",水:"辰"}; var JUE={木:"申",火:"亥",土:"亥",金:"寅",水:"巳"};
 function dongBian(b1,b2,wx1,wx2,kong,yueZhi,riZhi){var tag=[];
@@ -555,7 +556,7 @@ function render(ben, zhi, moves, yueZhi, riGan, riZhi, kong){
   for(var pos=5;pos>=0;pos--){
     var ld=lineData(ben,pos), zd=zhi?lineData(zhi,pos):null;
     var mov=moves.indexOf(pos)>=0, shi=ben[6]===pos?"世":(ben[7]===pos?"应":"");
-    var lrA=lineRel(pos,branches);
+    var lrA=lineRel(pos,branches,yueZhi);
     /* 本卦列 */
     var stL=staChips(ld.branch,ld.wx,yueZhi,riZhi,riGan,kong);
     lrA.forEach(function(x){stL+="<i class='r'>"+esc(x)+"</i>";});
